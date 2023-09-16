@@ -5,144 +5,80 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/register": {
-            "post": {
+        "/api/UpdateAllExpectedShipDates": {
+            "get": {
                 "tags": [
-                    "Register"
+                    "UpdateAllExpectedShipDates"
                 ],
-                "summary": "User Register",
-                "description": "User Register here",
-                "operationId": "Register",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "password",
-                                    "password_confirmation"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "text"
-                                    },
-                                    "email": {
-                                        "type": "text"
-                                    },
-                                    "password": {
-                                        "type": "password"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "password"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
+                "summary": "Parse through the comments fields in the MySql table to find a Expected Ship Dates",
+                "operationId": "cdb9a74b46d74a4564bfd8428c9aa859",
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 },
-                "responses": {
-                    "201": {
-                        "description": "Register Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Register Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                }
+                ]
             }
         },
-        "/api/login": {
-            "post": {
+        "/api/GetSortedComments": {
+            "get": {
                 "tags": [
-                    "Login"
+                    "GetSortedComments"
                 ],
-                "summary": "User Login",
-                "description": "Login User Here",
-                "operationId": "authLogin",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "email"
-                                    },
-                                    "password": {
-                                        "type": "password"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
+                "summary": "Get sorted comments from my MySql",
+                "operationId": "888b2b2e9877338c3716a2aed10ab6a6",
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 },
-                "responses": {
-                    "201": {
-                        "description": "Login Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Login Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                }
+                ]
+            }
+        },
+        "/api/CreateOrder": {
+            "post": {
+                "tags": [
+                    "CreateOrder"
+                ],
+                "summary": "Create an order.",
+                "operationId": "9a88458ff0aacf67637f228739faa8d5",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/UpdateOrder": {
+            "post": {
+                "tags": [
+                    "UpdateOrder"
+                ],
+                "summary": "Update and existing order.",
+                "operationId": "8f1527cf7894a730c0a7067bd361d563",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     }

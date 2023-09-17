@@ -18,6 +18,3 @@ Route::post('/createOrder', 'App\Http\Controllers\Api\OrderController@createOrde
 Route::get('/updateAllExpectedShipDates', 'App\Http\Controllers\Api\ExpectedShipDateController@updateAllExpectedShipDates');
 Route::get('/updateExpectedShipDate/{orderId}', 'App\Http\Controllers\Api\ExpectedShipDateController@updateExpectedShipDate');
 Route::get('/getSortedComments', 'App\Http\Controllers\Api\OrderCommentsController@getSortedComments');
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});

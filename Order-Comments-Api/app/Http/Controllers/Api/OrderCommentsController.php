@@ -26,15 +26,16 @@ class OrderCommentsController extends Controller
      */
     public function getSortedComments(Request $request)
     {
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|confirmed',
-        //     'mobile_number' => 'required',
-        // ]);
-        
         return response()->json([
             'data' => $this->orderService->getSortedComments()
+        ]);
+    }
+
+    public function showSortedComments(Request $request)
+    {
+        $sortedData = $this->orderService->getSortedComments();
+        return view('temp', [
+            'sortedData' => $sortedData,
         ]);
     }
 }

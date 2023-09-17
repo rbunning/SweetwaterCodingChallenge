@@ -18,13 +18,13 @@ class OrderCommentsController extends Controller
     /**
      * @OA\Get(
      *     tags={"GetSortedComments"},
-     *     path="/api/GetSortedComments",
+     *     path="/api/getSortedComments",
      *     summary="Get sorted comments from my MySql.",
      *     @OA\Response(response="200", description="Success"),
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function GetSortedComments(Request $request)
+    public function getSortedComments(Request $request)
     {
         // $validated = $request->validate([
         //     'name' => 'required',
@@ -34,7 +34,7 @@ class OrderCommentsController extends Controller
         // ]);
         
         return response()->json([
-            'data' => $this->orderService->GetSortedComments()
+            'data' => $this->orderService->getSortedComments()
         ]);
     }
 }

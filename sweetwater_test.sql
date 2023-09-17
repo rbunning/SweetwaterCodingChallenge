@@ -1,4 +1,4 @@
-select * from Sweetwater.sweetwater_test st 
+select * from Sweetwater.sweetwater_test st where orderid = 25006706;
 
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '123passw0rd';

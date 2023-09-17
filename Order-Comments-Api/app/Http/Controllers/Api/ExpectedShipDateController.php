@@ -17,23 +17,23 @@ class ExpectedShipDateController extends Controller
     /**
      * @OA\Get(
      *     tags={"UpdateAllExpectedShipDates"},
-     *     path="/api/UpdateAllExpectedShipDates",
+     *     path="/api/updateAllExpectedShipDates",
      *     summary="Parse through all the comment fields in the MySql table to find a expected ship dates.",
      *     @OA\Response(response="200", description="Success"),
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function UpdateAllExpectedShipDates(Request $request)
+    public function updateAllExpectedShipDates(Request $request)
     {
         return response()->json([
-            'data' => $this->orderService->UpdateAllExpectedShipDates()
+            'data' => $this->orderService->updateAllExpectedShipDates()
         ]);
     }
 
     /**
      * @OA\Get(
      *     tags={"UpdateExpectedShipDate"},
-     *     path="/api/UpdateExpectedShipDate/{orderId}",
+     *     path="/api/updateExpectedShipDate/{orderId}",
      *     summary="Parse through a comment field in the MySql table to find a expected ship date.",
      *     @OA\Parameter(
      *         description="ID of Order",
@@ -46,10 +46,10 @@ class ExpectedShipDateController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function UpdateExpectedShipDate(Request $request, $orderId)
+    public function updateExpectedShipDate(Request $request, $orderId)
     {
         return response()->json([
-            'data' => $this->orderService->UpdateExpectedShipDate($orderId)
+            'data' => $this->orderService->updateExpectedShipDate($orderId)
         ]);
     }
 }

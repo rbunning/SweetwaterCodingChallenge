@@ -17,7 +17,7 @@ class OrderController extends Controller
     /**
      * @OA\Post(
      *     tags={"CreateOrder"},
-     *     path="/api/CreateOrder",
+     *     path="/api/createOrder",
      *     summary="Create an order.",
      *      @OA\Parameter(
      *         name="Comment",
@@ -30,7 +30,7 @@ class OrderController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function CreateOrder(Request $request)
+    public function createOrder(Request $request)
     {
         $payload = json_decode($request->getContent(), true);
         // $validated = $request->validate([
@@ -48,7 +48,7 @@ class OrderController extends Controller
     /**
      * @OA\Post(
      *     tags={"UpdateOrder"},
-     *     path="/api/UpdateOrder/{orderId}",
+     *     path="/api/updateOrder/{orderId}",
      *     summary="Update and existing order.",
      *      @OA\Parameter(
      *         name="comments",
@@ -68,7 +68,7 @@ class OrderController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function UpdateOrder(Request $request, $orderId)
+    public function updateOrder(Request $request, $orderId)
     {
         $payload = json_decode($request->getContent(), true);
 

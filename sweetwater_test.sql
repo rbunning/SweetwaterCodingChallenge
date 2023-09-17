@@ -3,10 +3,10 @@ select * from Sweetwater.sweetwater_test st where orderid = 25006706;
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '123passw0rd';
 
+SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 
 
 DROP TABLE IF EXISTS `sweetwater_test`;
-SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE TABLE `sweetwater_test` (
   `orderid` int(11) unsigned NOT NULL,

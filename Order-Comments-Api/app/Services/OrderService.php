@@ -56,42 +56,55 @@ class OrderService implements OrderServiceInterface
         return $sortedComments;
     }
 
-    public function createOrder($orderDetails)
+    public function createOrder($payload)
     {
+        //$orderDetails['orderid'] = 99999999;
+        $orderDetails['orderid'] = mt_rand(10000000, 99999999);
+        $orderDetails['comments'] = $payload['comments'];
+        $orderDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
         return $orderDetails;
     }
 
-    public function updateOrder($orderId, array $newDetails)
+    public function updateOrder($orderId, $payload)
     {
-        
-
-
-
+        $newDetails['comments'] = $payload['comments'];
+        $newDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
         return $newDetails;
     }
 
     public function updateAllExpectedShipDates()
     {
         $orders = $this->orderRepository->getAllOrders();
-        foreach ($orders as $order) $this->parseShipDate($order);
+        foreach ($orders as $order) {
+            $shipDate = $this->parseShipDate($order['comments']);
+            if ($order['shipdate_expected'] == '0000-00-00 00:00:00' && $shipDate != '0000-00-00 00:00:00') {
+                $this->orderRepository->updateOrder($order["orderid"], ['shipdate_expected' => $shipDate]);
+            }
+        }
         return 1;
     }
 
     public function updateExpectedShipDate($orderId)
     {
         $order = $this->orderRepository->getOrderById($orderId);
-        return $this->parseShipDate($order);
+        $shipDate = $this->parseShipDate($order['comments']);
+        if ($order['shipdate_expected'] == '0000-00-00 00:00:00' && $shipDate != '0000-00-00 00:00:00') {
+            return $this->orderRepository->updateOrder($order["orderid"], ['shipdate_expected' => $shipDate]);
+        }
+        return 1;
     }
 
-    private function parseShipDate($order)
+    private function parseShipDate($comment)
     {
-        if ($order['shipdate_expected'] == '0000-00-00 00:00:00') { // The shipdate_expected field is not set.
-            $splitComments = explode("\n", $order["comments"]); // Look for shipdate_expected in the comments.
-            if (count($splitComments) > 2) { // There is a shipdate_expected value in the comments string.
-                $shipDate = explode(": ", $splitComments[1])[1]; // Split out the date.
-                return $this->orderRepository->updateOrder($order["orderid"], ['shipdate_expected' => $shipDate]);
-            }
+        $splitComments = explode("\n", $comment); // Look for shipdate_expected in the comments.
+        if (count($splitComments) > 2) { // There is a shipdate_expected value in the comments string.
+            return explode(": ", $splitComments[1])[1]; // Split out the date.
         }
-        return 2;
+        return '0000-00-00 00:00:00';
+    }
+
+    private function validateShipDate($currentOrderDate, $UpdatedShipDate)
+    {
+        return ($currentOrderDate['shipdate_expected'] == '0000-00-00 00:00:00' && $UpdatedShipDate != '0000-00-00 00:00:00');
     }
 }

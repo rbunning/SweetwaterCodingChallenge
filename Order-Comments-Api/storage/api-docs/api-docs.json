@@ -81,17 +81,22 @@
                 ],
                 "summary": "Create an order.",
                 "operationId": "2f32b864b16a8834cef2645266e4b8ec",
-                "parameters": [
-                    {
-                        "name": "Comment",
-                        "in": "query",
-                        "description": "Order Comment.",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "description": "Updated fields for an order.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "comments": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -113,24 +118,32 @@
                 "operationId": "9b75a2ba5e628dcd05f0c6cfecb222b2",
                 "parameters": [
                     {
-                        "name": "comments",
-                        "in": "query",
-                        "description": "Order Comment.",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "orderId",
                         "in": "path",
                         "description": "ID of Order",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "Updated fields for an order.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "comments": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success"

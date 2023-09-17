@@ -19,12 +19,13 @@ class OrderController extends Controller
      *     tags={"CreateOrder"},
      *     path="/api/createOrder",
      *     summary="Create an order.",
-     *      @OA\Parameter(
-     *         name="Comment",
-     *         in="query",
-     *         description="Order Comment.",
-     *         required=true,
-     *         @OA\Schema(type="string")
+     *     @OA\RequestBody(
+     *          required=true,
+     *          description="Updated fields for an order.",
+     *          @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(property="comments", type="string"),
+     *               )
      *     ),
      *     @OA\Response(response="200", description="Success"),
      *     security={{"bearerAuth":{}}}
@@ -33,15 +34,9 @@ class OrderController extends Controller
     public function createOrder(Request $request)
     {
         $payload = json_decode($request->getContent(), true);
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users',
-        //     'password' => 'required|confirmed',
-        //     'mobile_number' => 'required',
-        // ]);
 
         return response()->json([
-            'data' => $this->orderService->CreateOrder($payload)
+            'data' => $this->orderService->createOrder($payload)
         ]);
     }
 
@@ -50,19 +45,20 @@ class OrderController extends Controller
      *     tags={"UpdateOrder"},
      *     path="/api/updateOrder/{orderId}",
      *     summary="Update and existing order.",
-     *      @OA\Parameter(
-     *         name="comments",
-     *         in="query",
-     *         description="Order Comment.",
+     *    @OA\RequestBody(
      *         required=true,
-     *         @OA\Schema(type="string")
+     *         description="Updated fields for an order.",
+     *         @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="comments", type="string"),
+     *              )
      *     ),
      *     @OA\Parameter(
      *         description="ID of Order",
      *         in="path",
      *         name="orderId",
      *         required=true,
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(response="200", description="Success"),
      *     security={{"bearerAuth":{}}}
@@ -72,12 +68,8 @@ class OrderController extends Controller
     {
         $payload = json_decode($request->getContent(), true);
 
-        $orderDetails = [
-            'Comments' => $payload['comments']
-        ];
-
         return response()->json([
-            'data' => $this->orderService->UpdateOrder($orderId, $orderDetails)
+            'data' => $this->orderService->updateOrder($orderId, $payload)
         ]);
     }
 }

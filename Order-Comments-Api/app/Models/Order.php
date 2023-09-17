@@ -13,5 +13,9 @@ class Order extends Model
     protected $primaryKey = 'orderid';
     public $timestamps = false;
 
+    protected $fillable = [
+        'comments',
+    ];
+
 
 }

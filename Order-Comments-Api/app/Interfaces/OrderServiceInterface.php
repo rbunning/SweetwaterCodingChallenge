@@ -8,4 +8,5 @@ interface OrderServiceInterface
     public function createOrder(array $orderDetails);
     public function updateOrder($orderId, array $newDetails);
     public function UpdateAllExpectedShipDates();
+    public function UpdateExpectedShipDate($orderId);
 }

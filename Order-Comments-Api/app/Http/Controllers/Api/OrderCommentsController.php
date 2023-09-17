@@ -19,7 +19,7 @@ class OrderCommentsController extends Controller
      * @OA\Get(
      *     tags={"GetSortedComments"},
      *     path="/api/GetSortedComments",
-     *     summary="Get sorted comments from my MySql",
+     *     summary="Get sorted comments from my MySql.",
      *     @OA\Response(response="200", description="Success"),
      *     security={{"bearerAuth":{}}}
      * )

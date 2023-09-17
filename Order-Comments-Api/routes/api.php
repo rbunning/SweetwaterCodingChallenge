@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/UpdateOrder', 'App\Http\Controllers\Api\OrderController@UpdateOrder');
+Route::post('/UpdateOrder/{orderId}', 'App\Http\Controllers\Api\OrderController@UpdateOrder');
 Route::post('/CreateOrder', 'App\Http\Controllers\Api\OrderController@CreateOrder');
 Route::get('/UpdateAllExpectedShipDates', 'App\Http\Controllers\Api\ExpectedShipDateController@UpdateAllExpectedShipDates');
+Route::get('/UpdateExpectedShipDate/{orderId}', 'App\Http\Controllers\Api\ExpectedShipDateController@UpdateExpectedShipDate');
 Route::get('/GetSortedComments', 'App\Http\Controllers\Api\OrderCommentsController@GetSortedComments');
 Route::get('/user', function (Request $request) {
     return $request->user();

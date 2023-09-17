@@ -10,6 +10,6 @@ class Order extends Model
     use HasFactory;
 
     protected $table = 'sweetwater_test';
-    protected $primanyKey = 'orderid';
+    protected $primaryKey = 'orderid';
 
 }

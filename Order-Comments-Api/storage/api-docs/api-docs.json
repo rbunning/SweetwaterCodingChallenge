@@ -10,8 +10,39 @@
                 "tags": [
                     "UpdateAllExpectedShipDates"
                 ],
-                "summary": "Parse through the comments fields in the MySql table to find a Expected Ship Dates",
+                "summary": "Parse through all the comment fields in the MySql table to find a expected ship dates.",
                 "operationId": "cdb9a74b46d74a4564bfd8428c9aa859",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/UpdateExpectedShipDate/{orderId}": {
+            "get": {
+                "tags": [
+                    "UpdateExpectedShipDate"
+                ],
+                "summary": "Parse through a comment field in the MySql table to find a expected ship date.",
+                "operationId": "77137cb875d354dd040621cbb945c431",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID of Order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -29,7 +60,7 @@
                 "tags": [
                     "GetSortedComments"
                 ],
-                "summary": "Get sorted comments from my MySql",
+                "summary": "Get sorted comments from my MySql.",
                 "operationId": "888b2b2e9877338c3716a2aed10ab6a6",
                 "responses": {
                     "200": {
@@ -50,6 +81,17 @@
                 ],
                 "summary": "Create an order.",
                 "operationId": "9a88458ff0aacf67637f228739faa8d5",
+                "parameters": [
+                    {
+                        "name": "Comment",
+                        "in": "query",
+                        "description": "Order Comment.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -62,13 +104,33 @@
                 ]
             }
         },
-        "/api/UpdateOrder": {
+        "/api/UpdateOrder/{orderId}": {
             "post": {
                 "tags": [
                     "UpdateOrder"
                 ],
                 "summary": "Update and existing order.",
-                "operationId": "8f1527cf7894a730c0a7067bd361d563",
+                "operationId": "e94915894b8d9b0dc4f217c9446ae825",
+                "parameters": [
+                    {
+                        "name": "comments",
+                        "in": "query",
+                        "description": "Order Comment.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID of Order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"

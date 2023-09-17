@@ -26,7 +26,6 @@ class OrderService implements OrderServiceInterface
         foreach ($orders as $order) {
 
             $comment = $order["comments"];
-
             $commentSaved = false;
 
             if (Str::contains($comment, 'candy')) {
@@ -35,6 +34,7 @@ class OrderService implements OrderServiceInterface
             }
 
             if (Str::contains($comment, 'call')) {
+                // preg_match('/\bcall\b/', $comment)
                 $sortedComments->call[] = $order;
                 $commentSaved = true;
             }
@@ -77,7 +77,7 @@ class OrderService implements OrderServiceInterface
         $orders = $this->orderRepository->getAllOrders();
         foreach ($orders as $order) {
             $shipDate = $this->parseShipDate($order['comments']);
-            if ($order['shipdate_expected'] == '0000-00-00 00:00:00' && $shipDate != '0000-00-00 00:00:00') {
+            if ($this->validateShipDate($order['shipdate_expected'], $shipDate)) {
                 $this->orderRepository->updateOrder($order["orderid"], ['shipdate_expected' => $shipDate]);
             }
         }
@@ -88,23 +88,22 @@ class OrderService implements OrderServiceInterface
     {
         $order = $this->orderRepository->getOrderById($orderId);
         $shipDate = $this->parseShipDate($order['comments']);
-        if ($order['shipdate_expected'] == '0000-00-00 00:00:00' && $shipDate != '0000-00-00 00:00:00') {
+        if ($this->validateShipDate($order['shipdate_expected'], $shipDate)) {
             return $this->orderRepository->updateOrder($order["orderid"], ['shipdate_expected' => $shipDate]);
         }
-        return 1;
+        return 2;
     }
 
     private function parseShipDate($comment)
     {
-        $splitComments = explode("\n", $comment); // Look for shipdate_expected in the comments.
-        if (count($splitComments) > 2) { // There is a shipdate_expected value in the comments string.
-            return explode(": ", $splitComments[1])[1]; // Split out the date.
+        if (Str::contains($comment, 'Expected Ship Date: ')) {
+            return substr($comment, strpos($comment, 'Expected Ship Date: ') + 20, 8);
         }
         return '0000-00-00 00:00:00';
     }
 
     private function validateShipDate($currentOrderDate, $UpdatedShipDate)
     {
-        return ($currentOrderDate['shipdate_expected'] == '0000-00-00 00:00:00' && $UpdatedShipDate != '0000-00-00 00:00:00');
+        return ($currentOrderDate == '0000-00-00 00:00:00' && $UpdatedShipDate != '0000-00-00 00:00:00');
     }
 }

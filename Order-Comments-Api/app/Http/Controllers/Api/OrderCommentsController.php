@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Interfaces\OrderServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class OrderCommentsController extends Controller
 {
+    private OrderServiceInterface $orderService;
+
+    public function __construct(OrderServiceInterface $orderService) 
+    {
+        $this->orderService = $orderService;
+    }
+
     /**
      * @OA\Get(
      *     tags={"GetSortedComments"},
@@ -25,6 +33,8 @@ class OrderCommentsController extends Controller
         //     'mobile_number' => 'required',
         // ]);
         
-        return "hi there.";
+        return response()->json([
+            'data' => $this->orderService->GetSortedComments()
+        ]);
     }
 }

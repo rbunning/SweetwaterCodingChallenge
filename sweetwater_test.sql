@@ -1,4 +1,12 @@
+select * from Sweetwater.sweetwater_test st 
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123passw0rd';
+
+
+
 DROP TABLE IF EXISTS `sweetwater_test`;
+SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE TABLE `sweetwater_test` (
   `orderid` int(11) unsigned NOT NULL,

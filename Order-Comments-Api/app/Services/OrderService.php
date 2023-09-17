@@ -33,9 +33,13 @@ class OrderService implements OrderServiceInterface
     {
         $orders = $this->orderRepository->getAllOrders();
 
-
-
-        return "hi there5";
+        foreach ($orders as $order) {
+            if ($order['shipdate_expected'] == '0000-00-00 00:00:00') {
+                $shipdate = $this->ParseShipDate($order["comments"]);
+                $this->orderRepository->updateOrder($order["orderId"], ['shipdate_expected' => $shipdate]);
+            }
+        }
+        return 1;
     }
 
     public function UpdateExpectedShipDate($orderId)

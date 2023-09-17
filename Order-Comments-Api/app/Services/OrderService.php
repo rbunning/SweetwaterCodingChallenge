@@ -34,9 +34,12 @@ class OrderService implements OrderServiceInterface
         $orders = $this->orderRepository->getAllOrders();
 
         foreach ($orders as $order) {
-            if ($order['shipdate_expected'] == '0000-00-00 00:00:00') {
-                $shipdate = $this->ParseShipDate($order["comments"]);
-                $this->orderRepository->updateOrder($order["orderId"], ['shipdate_expected' => $shipdate]);
+            if ($order['shipdate_expected'] == '0000-00-00 00:00:00') { // The shipdate_expected field is not set.
+                $splitComments = explode("\n", $order["comments"]); // Look for shipdate_expected in the comments.
+                if (count($splitComments) > 2){ // There is a shipdate_expected value in the comments string.
+                    $shipdate = explode(": ", $splitComments[1])[1]; // Split out the date.
+                    $this->orderRepository->updateOrder($order["orderId"], ['shipdate_expected' => $shipdate]);
+                } 
             }
         }
         return 1;
@@ -45,14 +48,12 @@ class OrderService implements OrderServiceInterface
     public function UpdateExpectedShipDate($orderId)
     {
         $order = $this->orderRepository->getOrderById($orderId);
-        if ($order['shipdate_expected'] != '0000-00-00 00:00:00') return "1";
-        $shipdate = $this->ParseShipDate($order["comments"]);
-        return $this->orderRepository->updateOrder($orderId, ['shipdate_expected' => $shipdate]);
-    }
 
-    private function ParseShipDate($comments)
-    {
-        $splitComments = explode("\n", $comments);
-        return explode(": ", $splitComments[1])[1];
+        if ($order['shipdate_expected'] != '0000-00-00 00:00:00') return "2"; // The shipdate_expected field is set.
+        $splitComments = explode("\n", $order["comments"]); // Look for shipdate_expected in the comments.
+        if (count($splitComments) < 3) return "2"; // There is no shipdate_expected value in the comments string.
+        $shipdate = explode(": ", $splitComments[1])[1]; // Split out the date.
+
+        return $this->orderRepository->updateOrder($orderId, ['shipdate_expected' => $shipdate]);
     }
 }

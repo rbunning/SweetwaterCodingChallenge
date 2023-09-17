@@ -24,6 +24,6 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function updateOrder($orderId, array $newDetails) 
     {
-        return Order::whereId($orderId)->update($newDetails);
+        return Order::where('orderid','=', $orderId)->update($newDetails);
     }
 }

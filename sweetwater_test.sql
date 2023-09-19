@@ -1,14 +1,6 @@
-select * from Sweetwater.sweetwater_test st where orderid =  99999998;
-select * from Sweetwater.sweetwater_test st where comments = 'Need a window for delivery please call me
-Expected Ship Date: 01/04/18
-';
-
-
-
-ALTER USER 'root'@'localhost' IDENTIFIED BY '123passw0rd';
+select * from Sweetwater.sweetwater_test st where orderid =  99999999;
 
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
-
 
 DROP TABLE IF EXISTS `sweetwater_test`;
 
@@ -101,7 +93,6 @@ VALUES
 	(30703137,'Hello Nate, I\'ll take this one instead of the Seagull. I have a guitar that color of the  Seagull and I deserve a better guitar I  already learned guitar once I realize my level of playing isnt that great but it will be better this way my friendly niece will appreciate it. Sorry to bother you. Also it says free 2 day shipping but the Fed Ex say 7 day shipping can you work that out  for me? Thank you great sale.\nExpected Ship Date: 01/07/18\n','0000-00-00 00:00:00'),
 	(30711993,'Mike, thank you for the phone call. as promised here is the order....many thanks.\nExpected Ship Date: 01/05/18\n','0000-00-00 00:00:00'),
 	(30721071,'I need a case (hardshell?) for this guitar!\nExpected Ship Date: 01/05/18\n','0000-00-00 00:00:00'),
-	
 	(30724853,'Matt, you can send both of these orders in the same box. I just forgot to buy this adapter when I bought the pedal a few minutes ago. Thanks man\nExpected Ship Date: 01/07/18\n','0000-00-00 00:00:00'),
 	(30725567,'Please cancel the other order of the Black Hofner Club I made last month.\n','0000-00-00 00:00:00'),
 	(30727176,'I have a coupon from my first purchase for 10% off, coupon code 3NC18, please apply.\n','0000-00-00 00:00:00'),

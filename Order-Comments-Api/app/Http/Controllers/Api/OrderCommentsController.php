@@ -40,7 +40,7 @@ class OrderCommentsController extends Controller
     public function showSortedComments(Request $request)
     {
         $sortedData = $this->orderService->getSortedComments();
-        return view('temp', [
+        return view('admin', [
             'sortedData' => $sortedData,
         ]);
     }

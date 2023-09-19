@@ -3,60 +3,45 @@
 @section('title', 'Comments')
 
 @section('content')
-<div>
-    <h2>Candy</h2>
 
-    @foreach ($sortedData->candy as $candyReferrence)
-    <div>
-        <li> Id: {{ $candyReferrence->orderid }}</li>
-        <li>Comment: {{ $candyReferrence->comments }}</li>
-        <li>Expected Ship Date: {{ $candyReferrence->shipdate_expected }}</li>
-        <p></p>
-    </div>
-    @endforeach
+<h2>Collapsibles</h2>
 
-    <h2>Call me / Don't call me</h2>
-
-    @foreach ($sortedData->call as $callReferrence)
-    <div>
-        <li> Id: {{ $callReferrence->orderid }}</li>
-        <li>Comment: {{ $callReferrence->comments }}</li>
-        <li>Expected Ship Date: {{ $callReferrence->shipdate_expected }}</li>
-        <p></p>
-    </div>
-    @endforeach
-
-    <h2>Who referred me</h2>
-
-    @foreach ($sortedData->referred as $referredReferrence)
-    <div>
-        <li> Id: {{ $referredReferrence->orderid }}</li>
-        <li>Comment: {{ $referredReferrence->comments }}</li>
-        <li>Expected Ship Date: {{ $referredReferrence->shipdate_expected }}</li>
-        <p></p>
-    </div>
-    @endforeach
-
-    <h2>Signature requirements upon delivery</h2>
-
-    @foreach ($sortedData->signature as $signatureReferrence)
-    <div>
-        <li> Id: {{ $signatureReferrence->orderid }}</li>
-        <li>Comment: {{ $signatureReferrence->comments }}</li>
-        <li>Expected Ship Date: {{ $signatureReferrence->shipdate_expected }}</li>
-        <p></p>
-    </div>
-    @endforeach
-
-    <h2>Miscellaneous</h2>
-
-    @foreach ($sortedData->misc as $miscReferrence)
-    <div>
-        <li> Id: {{ $miscReferrence->orderid }}</li>
-        <li>Comment: {{ $miscReferrence->comments }}</li>
-        <li>Expected Ship Date: {{ $miscReferrence->shipdate_expected }}</li>
-        <p></p>
-    </div>
-    @endforeach
+<p>A Collapsible:</p>
+<button type="button" class="collapsible">Open Collapsible</button>
+<div class="content">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
 </div>
+
+<p>Collapsible Set:</p>
+<button type="button" class="collapsible">Open Section 1</button>
+<div class="content">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+</div>
+<button type="button" class="collapsible">Open Section 2</button>
+<div class="content">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+</div>
+<button type="button" class="collapsible">Open Section 3</button>
+<div class="content">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
+
 @endsection
+

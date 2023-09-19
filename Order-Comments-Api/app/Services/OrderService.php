@@ -24,29 +24,31 @@ class OrderService implements OrderServiceInterface
         $orders = $this->orderRepository->getAllOrders();
         $categories = explode(",", Env('COMMENT_CATEGORIES')); // List of sorted categories.
         $sortedComments = [];
-        $sortedComments['misc'] = []; // create the default Miscellaneous category
+        $sortedComments['misc'] = []; // Create the default Miscellaneous category.
 
         // Operate through the comments.
         foreach ($orders as $order) {
 
-            $comment = $order["comments"];
+            $comment = strtolower($order["comments"]); // Remove capitals letters.
             $commentSaved = false;
 
-            // check through the comment for a match in one of the categories.
+            // Check through the comment for a match in one of the categories.
             foreach ($categories as $category) {
                 if (Str::contains($comment, $category)) {
-                    if (!isset($sortedComments[$category])) {
+                    if (!isset($sortedComments[$category])) { // Add category.
                         $sortedComments[$category] = [];
                     }
-                    $sortedComments[$category][] = $order;
+                    $sortedComments[$category][] = $order; // Add comment to category.
                     $commentSaved = true;
                 }
             }
 
+            // Add comment to Miscellaneous category if it did not match.
             if (!$commentSaved) {
                 $sortedComments['misc'][] = $order;
             }
         }
+        ksort($sortedComments); // Sort accending.
         return $sortedComments;
     }
 

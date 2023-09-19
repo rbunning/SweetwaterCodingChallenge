@@ -1,11 +1,13 @@
+# Starting the app
+Navigate to Order-Comments-Api folder.
+Run 'composer install'.
+Run 'php artisan serve'.
+
 # Endpoints
-
-To start app 'php artisan serve'
-
 Commit list - https://github.com/rbunning/SweetwaterCodingChallenge/commits
 UI for sorted comments - http://localhost:8000/
-run 'php artisan l5-swagger:generate' to generate swagger ui 
 Swagger ui API endpoints - http://localhost:8000/api/documentation
+----
 
 # Web Programmer Test Project
 

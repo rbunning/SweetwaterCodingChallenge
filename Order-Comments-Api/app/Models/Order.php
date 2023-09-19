@@ -18,6 +18,4 @@ class Order extends Model
         'orderid',
         'shipdate_expected',
     ];
-
-
 }

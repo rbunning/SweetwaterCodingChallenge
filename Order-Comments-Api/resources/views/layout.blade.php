@@ -17,11 +17,11 @@
       font-size: 15px;
     }
 
-    .comment{
+    .comment {
       background-color: #0e427d;
     }
 
-    .category{
+    .category {
       background-color: #777;
     }
 

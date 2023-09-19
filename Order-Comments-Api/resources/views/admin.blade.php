@@ -4,8 +4,6 @@
 
 @section('content')
 <div>
-
-
     @foreach (array_keys($sortedData) as $key)
     <button type="button" class="collapsible category">{{$key}}</button>
     <div class="content">
@@ -22,9 +20,6 @@
     </div>
     <p></p>
     @endforeach
-
-
-
 </div>
 
 <script>

@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface OrderServiceInterface 
+interface OrderServiceInterface
 {
     public function getSortedComments();
     public function createOrder($payload);

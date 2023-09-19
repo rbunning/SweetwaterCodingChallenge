@@ -15,6 +15,8 @@ class Order extends Model
 
     protected $fillable = [
         'comments',
+        'orderid',
+        'shipdate_expected',
     ];
 
 

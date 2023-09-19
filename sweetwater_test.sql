@@ -1,5 +1,7 @@
-select * from Sweetwater.sweetwater_test st where orderid =  30841034;
-select * from Sweetwater.sweetwater_test st where orderid =  30832071;
+select * from Sweetwater.sweetwater_test st where orderid =  99999998;
+select * from Sweetwater.sweetwater_test st where comments = 'Need a window for delivery please call me
+Expected Ship Date: 01/04/18
+';
 
 
 

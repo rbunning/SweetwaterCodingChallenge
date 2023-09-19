@@ -54,14 +54,19 @@ class OrderService implements OrderServiceInterface
 
     /**
      * Creates a new order.
+     * This more witten to test the $this->parseShipDate($payload['comments']); as part of a create business function.
+     * This does not write unless shipdate_expected has a value since I could not send 0000-00-00 00:00:00 as the default value in the server side with out modifying the db.
      */
     public function createOrder($payload)
     {
-        //$orderDetails['orderid'] = 99999999;
-        $orderDetails['orderid'] = mt_rand(10000000, 99999999);
+        $orderDetails['orderid'] = 99999999;
         $orderDetails['comments'] = $payload['comments'];
         $orderDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
-        return $orderDetails;
+        if ($orderDetails['shipdate_expected'] != '0000-00-00 00:00:00') {
+            return $this->orderRepository->createOrder($orderDetails);
+        } else {
+            return $orderDetails;
+        }
     }
 
     /**
@@ -71,7 +76,7 @@ class OrderService implements OrderServiceInterface
     {
         $newDetails['comments'] = $payload['comments'];
         $newDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
-        return $newDetails;
+        return $this->orderRepository->updateOrder($orderId, $newDetails);
     }
 
     /**

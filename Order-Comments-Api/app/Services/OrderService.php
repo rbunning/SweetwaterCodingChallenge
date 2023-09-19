@@ -23,6 +23,11 @@ class OrderService implements OrderServiceInterface
     {
         $orders = $this->orderRepository->getAllOrders();
         $categories = explode(",", Env('COMMENT_CATEGORIES')); // List of sorted categories.
+
+
+
+
+
         $sortedComments = [];
         $sortedComments['misc'] = []; // Create the default Miscellaneous category.
 
@@ -34,12 +39,16 @@ class OrderService implements OrderServiceInterface
 
             // Check through the comment for a match in one of the categories.
             foreach ($categories as $category) {
-                if (Str::contains($comment, $category)) {
-                    if (!isset($sortedComments[$category])) { // Add category.
-                        $sortedComments[$category] = [];
+                $keywords = explode(",", Env(strtoupper($category)));
+                foreach ($keywords as $keyword) {
+                    if (preg_match("/\b$keyword\b/i", $comment)) {
+                    //if (Str::contains($comment, $category)) {
+                        if (!isset($sortedComments[$category])) { // Add category.
+                            $sortedComments[$category] = [];
+                        }
+                        $sortedComments[$category][] = $order; // Add comment to category.
+                        $commentSaved = true;
                     }
-                    $sortedComments[$category][] = $order; // Add comment to category.
-                    $commentSaved = true;
                 }
             }
 

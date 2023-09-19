@@ -79,7 +79,11 @@ class OrderService implements OrderServiceInterface
     public function updateOrder($orderId, $payload)
     {
         $newDetails['comments'] = $payload['comments'];
-        $newDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
+        $shipDate = $this->parseShipDate($payload['comments']);
+        if ($shipDate != '0000-00-00 00:00:00') {
+            $newDetails['shipdate_expected'] = $shipDate;
+        }
+        //$newDetails['shipdate_expected'] = $this->parseShipDate($payload['comments']);
         return $this->orderRepository->updateOrder($orderId, $newDetails);
     }
 

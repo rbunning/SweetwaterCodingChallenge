@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Interfaces\OrderRepositoryInterface;
 use App\Interfaces\OrderServiceInterface;
-use App\Models\SortedComments;
 use Illuminate\Support\Str;
 
 
@@ -17,45 +16,43 @@ class OrderService implements OrderServiceInterface
         $this->orderRepository = $orderRepository;
     }
 
+    /**
+     * Sorts through the comments in the db and creates a sorted list based on defined categories.
+     */
     public function getSortedComments()
     {
         $orders = $this->orderRepository->getAllOrders();
+        $categories = explode(",", Env('COMMENT_CATEGORIES')); // List of sorted categories.
+        $sortedComments = [];
+        $sortedComments['misc'] = []; // create the default Miscellaneous category
 
-        $sortedComments = new SortedComments();
-
+        // Operate through the comments.
         foreach ($orders as $order) {
 
             $comment = $order["comments"];
             $commentSaved = false;
 
-            if (Str::contains($comment, 'candy')) {
-                $sortedComments->candy[] = $order;
-                $commentSaved = true;
-            }
-
-            if (Str::contains($comment, 'call')) {
-                // preg_match('/\bcall\b/', $comment)
-                $sortedComments->call[] = $order;
-                $commentSaved = true;
-            }
-
-            if (Str::contains($comment, 'referred')) {
-                $sortedComments->referred[] = $order;
-                $commentSaved = true;
-            }
-
-            if (Str::contains($comment, 'signature')) {
-                $sortedComments->signature[] = $order;
-                $commentSaved = true;
+            // check through the comment for a match in one of the categories.
+            foreach ($categories as $category) {
+                if (Str::contains($comment, $category)) {
+                    if (!isset($sortedComments[$category])) {
+                        $sortedComments[$category] = [];
+                    }
+                    $sortedComments[$category][] = $order;
+                    $commentSaved = true;
+                }
             }
 
             if (!$commentSaved) {
-                $sortedComments->misc[] = $order;
+                $sortedComments['misc'][] = $order;
             }
         }
         return $sortedComments;
     }
 
+    /**
+     * Creates a new order.
+     */
     public function createOrder($payload)
     {
         //$orderDetails['orderid'] = 99999999;
@@ -65,6 +62,9 @@ class OrderService implements OrderServiceInterface
         return $orderDetails;
     }
 
+    /**
+     * Updates a existing order.
+     */
     public function updateOrder($orderId, $payload)
     {
         $newDetails['comments'] = $payload['comments'];
@@ -72,6 +72,9 @@ class OrderService implements OrderServiceInterface
         return $newDetails;
     }
 
+    /**
+     * Updates shipdate_expected db field for all the records.
+     */
     public function updateAllExpectedShipDates()
     {
         $orders = $this->orderRepository->getAllOrders();
@@ -84,6 +87,9 @@ class OrderService implements OrderServiceInterface
         return 1;
     }
 
+    /**
+     * Updates shipdate_expected db field for a single record.
+     */
     public function updateExpectedShipDate($orderId)
     {
         $order = $this->orderRepository->getOrderById($orderId);
@@ -94,6 +100,9 @@ class OrderService implements OrderServiceInterface
         return 2;
     }
 
+    /**
+     * Parses the Expected Ship Date from the comment.
+     */
     private function parseShipDate($comment)
     {
         if (Str::contains($comment, 'Expected Ship Date: ')) {
@@ -102,6 +111,9 @@ class OrderService implements OrderServiceInterface
         return '0000-00-00 00:00:00';
     }
 
+    /**
+     * Validates that the Expected Ship Date is needs to be addd the the shipdate_expected db field.
+     */
     private function validateShipDate($currentOrderDate, $UpdatedShipDate)
     {
         return ($currentOrderDate == '0000-00-00 00:00:00' && $UpdatedShipDate != '0000-00-00 00:00:00');

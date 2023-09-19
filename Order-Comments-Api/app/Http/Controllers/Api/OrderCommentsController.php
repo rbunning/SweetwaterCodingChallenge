@@ -10,7 +10,7 @@ class OrderCommentsController extends Controller
 {
     private OrderServiceInterface $orderService;
 
-    public function __construct(OrderServiceInterface $orderService) 
+    public function __construct(OrderServiceInterface $orderService)
     {
         $this->orderService = $orderService;
     }
@@ -31,6 +31,12 @@ class OrderCommentsController extends Controller
         ]);
     }
 
+    /**
+     * Get sorted comments from my MySql for frontend UI.
+     *
+     * @param  Request  $request
+     * @return $sortedData
+     */
     public function showSortedComments(Request $request)
     {
         $sortedData = $this->orderService->getSortedComments();

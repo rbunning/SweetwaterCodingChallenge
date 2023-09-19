@@ -1,3 +1,12 @@
+# Endpoints
+
+To start app 'php artisan serve'
+
+Commit list - https://github.com/rbunning/SweetwaterCodingChallenge/commits
+UI for sorted comments - http://localhost:8000/
+run 'php artisan l5-swagger:generate' to generate swagger ui 
+Swagger ui API endpoints - http://localhost:8000/api/documentation
+
 # Web Programmer Test Project
 
 Thanks for your interest in working at Sweetwater! We're always excited to meet awesome people. We've created this test to help us understand your programming chops.

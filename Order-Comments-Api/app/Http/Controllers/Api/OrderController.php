@@ -18,7 +18,9 @@ class OrderController extends Controller
      * @OA\Post(
      *     tags={"CreateOrder"},
      *     path="/api/createOrder",
-     *     summary="Create an order.",
+     *     summary="This more witten to test the $this->parseShipDate($payload['comments']); as part of a create business function.
+     *              This does not write unless shipdate_expected has a value since I could not send 0000-00-00 00:00:00 as the default value 
+     *              in the server side with out modifying the db.",
      *     @OA\RequestBody(
      *          required=true,
      *          description="Updated fields for an order.",
